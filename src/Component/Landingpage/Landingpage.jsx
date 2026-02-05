@@ -81,7 +81,7 @@ const Landingpage = () => {
         {/* Heading */}
         <h1 className="text-3xl sm:text-4xl md:text-6xl font-extrabold mb-4 leading-tight">
           I design & build brands that{" "}
-          <span className="italic text-red-500">create real impact</span>
+          <span className="text-red-500">create real impact</span>
         </h1>
 
         {/* Name */}

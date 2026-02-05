@@ -8,19 +8,21 @@ import InsightCards from "./Component/InsightCards/InsightCards";
 import Portfolio from "./Component/Portfolio/Portfolio";
 import Testimonials from "./Component/Testimonials/Testimonials";
 import Hero from "./Component/Hero/Hero";
+import Footer from "./Component/Footer/Footer";
 
 const App = () => {
   return (
     <div>
       <Navbar />
       <Landingpage />
-      {/* <InsightCards/> */}
+      <InsightCards/>
       {/* <Aboutus/> */}
       <AboutHero />
       <Portfolio />
       <SkillsetSection />
       <Hero/>
       <Testimonials/>
+      <Footer/>
     
     </div>
   );

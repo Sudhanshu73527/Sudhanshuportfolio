@@ -1,3 +1,4 @@
+
 export default {
   content: [
     "./index.html",
@@ -6,5 +7,9 @@ export default {
   theme: {
     extend: {},
   },
+   fontFamily: {
+      tinos: ['"Tinos"', 'serif'],
+    },
   plugins: [],
 }
+
