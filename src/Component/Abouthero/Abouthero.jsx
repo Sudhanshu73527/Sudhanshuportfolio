@@ -14,7 +14,10 @@ const AboutHero = () => {
   }, []);
 
   return (
-    <section className="relative bg-black text-white py-20 md:py-24 overflow-hidden">
+    <section
+      id="about" // ✅ FIX: Added id for smooth scroll
+      className="relative bg-black text-white py-20 md:py-24 overflow-hidden scroll-mt-24" // ✅ FIX: offset for fixed navbar
+    >
       <div className="max-w-7xl mx-auto px-5 md:px-6 grid grid-cols-1 lg:grid-cols-2 gap-14 lg:gap-16 items-center">
         {/* LEFT CONTENT */}
         <div className="text-center lg:text-left">
@@ -48,7 +51,9 @@ const AboutHero = () => {
               As the founder of my web services company{" "}
               <a
                 href="https://www.webala.in/"
-                className="text-pink-500 font-semibold"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-pink-500 font-semibold hover:underline"
               >
                 WEBALA
               </a>{" "}
@@ -58,7 +63,7 @@ const AboutHero = () => {
 
             <p>
               My code is built to last, helping your business reach the next
-              level ! 
+              level !
             </p>
           </div>
         </div>
@@ -83,6 +88,7 @@ const AboutHero = () => {
                 opacity-80 scale-95
                 shadow-xl
               "
+              alt="about"
             />
 
             {/* RIGHT STACK IMAGE */}
@@ -94,6 +100,7 @@ const AboutHero = () => {
                 opacity-80 scale-95
                 shadow-xl
               "
+              alt="about"
             />
 
             {/* CENTER IMAGE */}
@@ -110,6 +117,7 @@ const AboutHero = () => {
                   shadow-[0_30px_100px_rgba(0,0,0,0.9)]
                   z-10
                 "
+                alt="about-main"
               />
             </AnimatePresence>
           </div>

@@ -9,6 +9,10 @@ body {
   font-family: "Tinos", serif;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 /* body {
   @apply font-tinos;
 } */

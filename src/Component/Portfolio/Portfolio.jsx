@@ -16,44 +16,68 @@ const projects = [
   {
     title: "SHNAU MART",
     image: "/mart.jpeg",
-    description: "An all-in-one grocery delivery solution for ordering fresh daily essentials with quick doorstep delivery..",
+    description:
+      "An all-in-one grocery delivery solution for ordering fresh daily essentials with quick doorstep delivery..",
     tech: [FaReact, SiTailwindcss, SiFramer],
     live: "https://www.shanumart.in/",
   },
   {
     title: "THE 9TO9 RESTAURANT",
     image: "/ninetonine.jpeg",
-    description: "A seamless fast-food delivery experience designed for speed, easy ordering, and smooth checkout.",
+    description:
+      "A seamless fast-food delivery experience designed for speed, easy ordering, and smooth checkout.",
     tech: [FaReact, SiTailwindcss, SiFramer],
     live: "http://the9to9restaurant.com/",
   },
   {
     title: "CIHS INSTITUTE",
     image: "/cihs.jpeg",
-    description: "Institutional website for admissions & compelete academic management.",
+    description:
+      "Institutional website for admissions & compelete academic management.",
     tech: [FaReact, SiTailwindcss],
     live: "http://cihsstudies.com/",
   },
   {
     title: "PITTENWEEM CHOCLATE COMPANY",
     image: "/choc.png",
-    description: "A premium chocolate brand website showcasing handcrafted chocolates with smooth browsing and online ordering",
+    description:
+      "A premium chocolate brand website showcasing handcrafted chocolates with smooth browsing and online ordering",
     tech: [FaReact, SiNextdotjs, SiMongodb],
     live: "https://pittenweemchocolate.co.uk/",
   },
   {
     title: "ZIZA BEDS",
     image: "/ziza.png",
-    description: "A furniture delivery system with product browsing, cart, and seamless checkout.",
+    description:
+      "A furniture delivery system with product browsing, cart, and seamless checkout.",
     tech: [FaReact, FaNodeJs, SiMongodb],
     live: "#",
   },
   {
     title: "YAVAR AI",
     image: "/yavar.png",
-    description: "Reinventingworkflows to deliver Enterprise Intelligence.",
+    description:
+      "Reinventing workflows to deliver Enterprise Intelligence.",
     tech: [FaReact, SiTailwindcss, SiFramer],
     live: "https://www.yavar.ai/",
+  },
+
+   {
+    title: "Daily Harvest",
+    image: "/port1.png",
+    description:
+      "Daily Harvest – Freshness Delivered Daily.",
+    tech: [FaReact, SiTailwindcss, SiFramer],
+    live: "https://daily-harvest.com/",
+  },
+
+   {
+    title: "Jane Cosmetics",
+    image: "/port2.png",
+    description:
+      "A complete cosmetics plot",
+    tech: [FaReact, SiTailwindcss, SiFramer],
+    live: "https://janecosmetics.co.uk/",
   },
 ];
 
@@ -121,7 +145,7 @@ const Card = ({ project }) => {
               </defs>
               <text fill="white" fontSize="8" letterSpacing="2">
                 <textPath href="#circle">
-                  OPEN TO REVIEW MY DELIVIRED PROJECT •
+                  OPEN TO REVIEW MY DELIVERED PROJECT •
                 </textPath>
               </text>
             </svg>
@@ -162,6 +186,8 @@ const Card = ({ project }) => {
 
           <a
             href={project.live}
+            target="_blank"
+            rel="noopener noreferrer"
             className="inline-flex items-center gap-2 mt-4 text-sm text-red-500 hover:text-white"
           >
             <ExternalLink size={14} /> Live Demo
@@ -177,10 +203,14 @@ const Card = ({ project }) => {
 ======================= */
 const Portfolio = () => {
   return (
-    <section className="bg-black text-white py-24 px-6">
+    <section
+      id="work" // ✅ FIX: added id for navbar scroll
+      className="bg-black text-white py-24 px-6 scroll-mt-24" // ✅ FIX: offset for navbar
+    >
       <div className="max-w-7xl mx-auto">
         <h2 className="text-3xl font-semibold mb-14">
-          Selected <span className="text-pink-500 font-extrabold">Portfolio</span>
+          Selected{" "}
+          <span className="text-pink-500 font-extrabold">Portfolio</span>
         </h2>
 
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">

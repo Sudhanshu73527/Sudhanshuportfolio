@@ -15,6 +15,12 @@ const SNOW_COUNT = 60;
 
 const Landingpage = () => {
   const [roleIndex, setRoleIndex] = useState(0);
+  const [openForm, setOpenForm] = useState(false); // ✅ modal state
+
+  const [form, setForm] = useState({
+    name: "",
+    message: "",
+  });
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -32,18 +38,29 @@ const Landingpage = () => {
         color: "#fff",
         borderRadius: "12px",
       },
-      iconTheme: {
-        primary: "#ef4444",
-        secondary: "#fff",
-      },
     });
+  };
+
+  // ✅ WhatsApp Send
+  const handleSubmit = () => {
+    if (!form.name || !form.message) {
+      toast.error("Please fill all fields");
+      return;
+    }
+
+    const phone = "917352205506";
+
+    const text = `Hello, I'm ${form.name}%0A${form.message}`;
+    const url = `https://wa.me/${phone}?text=${text}`;
+
+    window.open(url, "_blank");
+    setOpenForm(false);
   };
 
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden text-white 
       bg-gradient-to-b from-[#160000] via-[#300000] to-black">
 
-      {/* Toast Container */}
       <Toaster position="bottom-center" />
 
       {/* Glow */}
@@ -78,13 +95,11 @@ const Landingpage = () => {
 
       <div className="text-center px-4 sm:px-6 max-w-4xl z-10">
 
-        {/* Heading */}
         <h1 className="text-3xl sm:text-4xl md:text-6xl font-extrabold mb-4 leading-tight">
           I design & build brands that{" "}
           <span className="text-red-500">create real impact</span>
         </h1>
 
-        {/* Name */}
         <h3 className="text-base sm:text-lg md:text-2xl mb-5 text-white/80">
           Hello, I'm{" "}
           <span className="font-bold text-red-500">Sudhanshu Kumar</span>
@@ -109,17 +124,17 @@ const Landingpage = () => {
         {/* CTA Buttons */}
         <div className="flex flex-col sm:flex-row justify-center items-center gap-4 w-full">
 
-          {/* Connect */}
-          <motion.a
+          {/* ✅ UPDATED BUTTON */}
+          <motion.button
+            onClick={() => setOpenForm(true)}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            href="#contact"
             className="w-full sm:w-auto bg-red-500 px-6 py-3 rounded-full 
             text-sm font-semibold flex items-center justify-center gap-2 
             shadow-xl hover:bg-red-600 transition"
           >
             Let's Connect <FaArrowRight size={14} />
-          </motion.a>
+          </motion.button>
 
           {/* Email */}
           <motion.button
@@ -134,9 +149,63 @@ const Landingpage = () => {
             tiwarisunny7352@gmail.com
             <FaCopy className="text-white/60" />
           </motion.button>
-
         </div>
       </div>
+
+      {/* ✅ MODAL FORM */}
+      <AnimatePresence>
+        {openForm && (
+          <motion.div
+            className="fixed inset-0 bg-black/70 flex items-center justify-center z-50"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+          >
+            <motion.div
+              initial={{ scale: 0.8 }}
+              animate={{ scale: 1 }}
+              exit={{ scale: 0.8 }}
+              className="bg-[#111] p-6 rounded-2xl w-[90%] max-w-md text-white"
+            >
+              <h2 className="text-xl font-bold mb-4">Let's Connect</h2>
+
+              <input
+                type="text"
+                placeholder="Your Name"
+                className="w-full mb-3 p-3 rounded-lg bg-black border border-white/20"
+                onChange={(e) =>
+                  setForm({ ...form, name: e.target.value })
+                }
+              />
+
+              <textarea
+                placeholder="Your Message"
+                className="w-full mb-4 p-3 rounded-lg bg-black border border-white/20"
+                rows={4}
+                onChange={(e) =>
+                  setForm({ ...form, message: e.target.value })
+                }
+              />
+
+              <div className="flex justify-between">
+                <button
+                  onClick={() => setOpenForm(false)}
+                  className="px-4 py-2 bg-gray-700 rounded-lg"
+                >
+                  Cancel
+                </button>
+
+                <button
+                  onClick={handleSubmit}
+                  className="px-4 py-2 bg-red-500 rounded-lg"
+                >
+                  Send
+                </button>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </section>
   );
 };
