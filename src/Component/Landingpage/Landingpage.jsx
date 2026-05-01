@@ -11,17 +11,31 @@ const roles = [
   "Problem Solver",
 ];
 
-const SNOW_COUNT = 60;
+const container = {
+  hidden: {},
+  show: {
+    transition: {
+      staggerChildren: 0.15,
+    },
+  },
+};
+
+const item = {
+  hidden: { opacity: 0, y: 30 },
+  show: { opacity: 1, y: 0 },
+};
 
 const Landingpage = () => {
   const [roleIndex, setRoleIndex] = useState(0);
-  const [openForm, setOpenForm] = useState(false); // ✅ modal state
+  const [openForm, setOpenForm] = useState(false);
+  const [mouse, setMouse] = useState({ x: 0, y: 0 });
 
   const [form, setForm] = useState({
     name: "",
     message: "",
   });
 
+  // Role loop
   useEffect(() => {
     const interval = setInterval(() => {
       setRoleIndex((prev) => (prev + 1) % roles.length);
@@ -29,143 +43,157 @@ const Landingpage = () => {
     return () => clearInterval(interval);
   }, []);
 
-  const handleCopy = () => {
-    navigator.clipboard.writeText("sudhanshu@example.com");
+  // Mouse glow
+  useEffect(() => {
+    const move = (e) => setMouse({ x: e.clientX, y: e.clientY });
+    window.addEventListener("mousemove", move);
+    return () => window.removeEventListener("mousemove", move);
+  }, []);
 
-    toast.success("Email copied to clipboard!", {
-      style: {
-        background: "#111",
-        color: "#fff",
-        borderRadius: "12px",
-      },
-    });
+  const handleCopy = () => {
+    navigator.clipboard.writeText("tiwarisunny7352@gmail.com");
+    toast.success("Email copied!");
   };
 
-  // ✅ WhatsApp Send
   const handleSubmit = () => {
     if (!form.name || !form.message) {
-      toast.error("Please fill all fields");
+      toast.error("Fill all fields");
       return;
     }
 
     const phone = "917352205506";
-
     const text = `Hello, I'm ${form.name}%0A${form.message}`;
-    const url = `https://wa.me/${phone}?text=${text}`;
+    window.open(`https://wa.me/${phone}?text=${text}`, "_blank");
 
-    window.open(url, "_blank");
     setOpenForm(false);
   };
 
+  // 🔥 Magnetic Button Improved
+  const MagneticButton = ({ children, onClick }) => {
+    const [pos, setPos] = useState({ x: 0, y: 0 });
+
+    return (
+      <motion.button
+        onMouseMove={(e) => {
+          const rect = e.currentTarget.getBoundingClientRect();
+          setPos({
+            x: (e.clientX - rect.left - rect.width / 2) * 0.25,
+            y: (e.clientY - rect.top - rect.height / 2) * 0.25,
+          });
+        }}
+        onMouseLeave={() => setPos({ x: 0, y: 0 })}
+        animate={{ x: pos.x, y: pos.y }}
+        transition={{ type: "spring", stiffness: 120, damping: 8 }}
+        onClick={onClick}
+        className="relative bg-red-500 px-7 py-3 rounded-full flex items-center gap-2 shadow-lg overflow-hidden"
+      >
+        <span className="relative z-10">{children}</span>
+
+        {/* Shine effect */}
+        <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent opacity-0 hover:opacity-100 transition duration-700 animate-[shine_2s_linear_infinite]" />
+      </motion.button>
+    );
+  };
+
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden text-white 
-      bg-gradient-to-b from-[#160000] via-[#300000] to-black">
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden text-white bg-black">
 
       <Toaster position="bottom-center" />
 
-      {/* Glow */}
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(255,0,0,0.2),_transparent_65%)] -z-10" />
+      {/* Mouse Glow */}
+      <div
+        className="pointer-events-none fixed inset-0 z-0"
+        style={{
+          background: `radial-gradient(600px at ${mouse.x}px ${mouse.y}px, rgba(255,0,0,0.15), transparent 80%)`,
+        }}
+      />
 
-      {/* Particles */}
-      <div className="absolute inset-0 pointer-events-none -z-10">
-        {[...Array(SNOW_COUNT)].map((_, i) => (
-          <motion.span
-            key={i}
-            className="absolute rounded-full bg-white/60"
-            style={{
-              width: Math.random() * 4 + 2,
-              height: Math.random() * 4 + 2,
-              left: `${Math.random() * 100}%`,
-              top: `-${Math.random() * 20}%`,
-            }}
-            animate={{
-              y: "120vh",
-              x: [`${Math.random() * -40}px`, `${Math.random() * 40}px`],
-              opacity: [0, 1, 1, 0],
-            }}
-            transition={{
-              duration: 8 + Math.random() * 8,
-              repeat: Infinity,
-              ease: "linear",
-              delay: Math.random() * 6,
-            }}
-          />
-        ))}
-      </div>
+      {/* Floating Lights */}
+      <div className="absolute w-72 h-72 bg-red-500/20 blur-[120px] rounded-full top-10 left-10 animate-pulse" />
+      <div className="absolute w-60 h-60 bg-red-400/10 blur-[100px] rounded-full bottom-10 right-10" />
 
-      <div className="text-center px-4 sm:px-6 max-w-4xl z-10">
+      {/* Content */}
+      <motion.div
+        variants={container}
+        initial="hidden"
+        animate="show"
+        className="relative z-10 text-center max-w-3xl px-6"
+      >
 
-        <h1 className="text-3xl sm:text-4xl md:text-6xl font-extrabold mb-4 leading-tight">
+        <motion.div variants={item} className="mb-6">
+          <span className="px-4 py-1 rounded-full border border-white/20 bg-white/5 backdrop-blur-md text-sm">
+             Available for Freelance Work
+          </span>
+        </motion.div>
+
+        <motion.h1
+          variants={item}
+          className="text-4xl md:text-6xl font-extrabold leading-tight mb-5"
+        >
           I design & build brands that{" "}
-          <span className="text-red-500">create real impact</span>
-        </h1>
+          <span className="text-red-500 relative">
+            create real impact
+            <span className="absolute left-0 bottom-0 w-full h-[2px] bg-red-500 animate-pulse"></span>
+          </span>
+        </motion.h1>
 
-        <h3 className="text-base sm:text-lg md:text-2xl mb-5 text-white/80">
+        <motion.p variants={item} className="text-lg text-white/70 mb-6">
           Hello, I'm{" "}
-          <span className="font-bold text-red-500">Sudhanshu Kumar</span>
-        </h3>
+          <span className="text-white font-semibold">
+            Sudhanshu Kumar <br /> A
+          </span>
+        </motion.p>
 
         {/* Role */}
-        <div className="flex justify-center mb-8">
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={roleIndex}
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -10 }}
-              transition={{ duration: 0.35 }}
-              className="bg-red-500 px-5 py-2 rounded-full text-sm sm:text-base font-semibold shadow-lg"
-            >
-              {roles[roleIndex]}
-            </motion.div>
-          </AnimatePresence>
-        </div>
-
-        {/* CTA Buttons */}
-        <div className="flex flex-col sm:flex-row justify-center items-center gap-4 w-full">
-
-          {/* ✅ UPDATED BUTTON */}
-          <motion.button
-            onClick={() => setOpenForm(true)}
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            className="w-full sm:w-auto bg-red-500 px-6 py-3 rounded-full 
-            text-sm font-semibold flex items-center justify-center gap-2 
-            shadow-xl hover:bg-red-600 transition"
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={roleIndex}
+            initial={{ opacity: 0, y: 15 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -15 }}
+            className="inline-block mb-8 px-5 py-2 rounded-full bg-red-500/10 border border-red-500/30 text-red-400 text-sm"
           >
-            Let's Connect <FaArrowRight size={14} />
-          </motion.button>
+            {roles[roleIndex]}
+          </motion.div>
+        </AnimatePresence>
 
-          {/* Email */}
+        {/* Buttons */}
+        <motion.div variants={item} className="flex flex-col sm:flex-row justify-center gap-4">
+
+          <MagneticButton onClick={() => setOpenForm(true)}>
+            Let's Connect 
+          </MagneticButton>
+
           <motion.button
-            whileHover={{ scale: 1.03 }}
-            whileTap={{ scale: 0.95 }}
             onClick={handleCopy}
-            className="w-full sm:w-auto px-6 py-3 rounded-full 
-            text-sm font-medium flex items-center justify-center gap-3 
-            border border-white/20 bg-white/5 backdrop-blur-md 
-            hover:bg-white/10 transition shadow-lg"
+            whileHover={{ scale: 1.05 }}
+            className="px-7 py-3 rounded-full border border-white/20 bg-white/5 backdrop-blur-md flex items-center gap-2"
           >
-            tiwarisunny7352@gmail.com
-            <FaCopy className="text-white/60" />
+            Copy Email <FaCopy />
           </motion.button>
+
+        </motion.div>
+      </motion.div>
+
+      {/* Bottom Card */}
+      <div className="absolute bottom-6 w-full flex justify-center px-4">
+        <div className="bg-white/5 backdrop-blur-lg border border-white/10 px-6 py-3 rounded-xl text-sm text-white/70 shadow-lg hover:scale-105 transition">
+           Crafting modern web experiences with performance & aesthetics
         </div>
       </div>
 
-      {/* ✅ MODAL FORM */}
+      {/* Modal */}
       <AnimatePresence>
         {openForm && (
           <motion.div
             className="fixed inset-0 bg-black/70 flex items-center justify-center z-50"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
           >
             <motion.div
               initial={{ scale: 0.8 }}
               animate={{ scale: 1 }}
-              exit={{ scale: 0.8 }}
-              className="bg-[#111] p-6 rounded-2xl w-[90%] max-w-md text-white"
+              className="bg-[#111] p-6 rounded-2xl w-[90%] max-w-md"
             >
               <h2 className="text-xl font-bold mb-4">Let's Connect</h2>
 
@@ -206,6 +234,7 @@ const Landingpage = () => {
           </motion.div>
         )}
       </AnimatePresence>
+
     </section>
   );
 };

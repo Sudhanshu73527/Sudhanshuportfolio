@@ -14,6 +14,31 @@ import { useState } from "react";
 ======================= */
 const projects = [
   {
+    title: "More",
+    image: "/more.png",
+    description:
+      "A complete supermarket offers a wide variety of products including groceries, fresh produce",
+    tech: [FaReact, SiTailwindcss, SiFramer],
+    live: "https://more.in/",
+  },
+  {
+    title: "Aapka bazar",
+    image: "/akb.png",
+    description:
+      "A grocery store is a retail shop that sells everyday essential food items such as fruits, vegetables, grains,",
+    tech: [FaReact, SiTailwindcss, SiFramer],
+    live: "https://aapkabazar.co/",
+  },
+  {
+    title: "Shubham kmart",
+    image: "/kmart.png",
+    description:
+      "It provides convenient access to daily household needs, making shopping quick and easy for customers.",
+    tech: [FaReact, SiTailwindcss, SiFramer],
+    live: "https://play.google.com/store/apps/details?id=com.shubhamkmart.shubhamkmartecom&hl=en",
+  },
+  
+  {
     title: "SHNAU MART",
     image: "/mart.jpeg",
     description:
@@ -27,7 +52,7 @@ const projects = [
     description:
       "A seamless fast-food delivery experience designed for speed, easy ordering, and smooth checkout.",
     tech: [FaReact, SiTailwindcss, SiFramer],
-    live: "http://the9to9restaurant.com/",
+    live: "https://play.google.com/store/apps/details?id=com.mritunjay.app9to9",
   },
   {
     title: "CIHS INSTITUTE",
@@ -70,7 +95,6 @@ const projects = [
     tech: [FaReact, SiTailwindcss, SiFramer],
     live: "https://daily-harvest.com/",
   },
-
    {
     title: "Jane Cosmetics",
     image: "/port2.png",
@@ -78,6 +102,24 @@ const projects = [
       "A complete cosmetics plot",
     tech: [FaReact, SiTailwindcss, SiFramer],
     live: "https://janecosmetics.co.uk/",
+  },
+
+  {
+    title: "Ignite Institute",
+    image: "/ignitee.jpeg",
+    description:
+      "A complete Safety Engg learning Platform App",
+    tech: [FaReact, SiTailwindcss, SiFramer],
+    live: "",
+  },
+
+  {
+    title: "Aryabhatta National Public School",
+    image: "/araybhat.png",
+    description:
+      "School webiste for manage data and student's records",
+    tech: [FaReact, SiTailwindcss, SiFramer],
+    live: "https://www.aryabhattanationalpublicschoolsemra.com/",
   },
 ];
 
